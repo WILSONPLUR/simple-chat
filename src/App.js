@@ -1,6 +1,7 @@
 // @ts-nocheck
 import "./App.css";
 import React, { useEffect, useState } from "react";
+import {TextField, Button, Box, Typography} from "@mui/material"
 import io from "socket.io-client";
 
 const socket = io.connect("http://localhost:3005");
@@ -22,7 +23,7 @@ function App() {
     });
   }, [socket]);
   return (
-    <div className="App">
+    <Box marginY="300px" className="App">
       <div
         style={{
           display: "flex",
@@ -30,22 +31,16 @@ function App() {
           alignItems: "center",
         }}
       >
-        <input
-          value={room}
-          onChange={(e) => setRoom(e.target.value)}
-          placeholder="join room"
-        />
-        <button onClick={joinRoom}>Join Room</button>
+          <TextField size="small" value={room}  onChange={(e) => setRoom(e.target.value)} id="outlined-basic" label="Enter room" variant="outlined" />
+          <Button onClick={joinRoom} size="normal" variant="contained">Join Room</Button>
       </div>
-      <input
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        placeholder="Message..."
-      />
-      <button onClick={sendMessage}>Send Message</button>
-      <h1>Chat: </h1>
-      <span>{messageReceived}</span>
-    </div>
+        <Box marginTop="20px" display="flex" alignItems="center" justifyContent="center">
+            <TextField size="small" value={message}  onChange={(e) => setMessage(e.target.value)} id="outlined-basic" label="Your message..." variant="outlined" />
+            <Button onClick={sendMessage} size="normal" variant="contained">Send Message</Button>
+        </Box>
+      <Typography variant="h4" marginY="20px">Chat: </Typography>
+      <Typography variant="body1" component="span">{messageReceived}</Typography>
+    </Box>
   );
 }
 
